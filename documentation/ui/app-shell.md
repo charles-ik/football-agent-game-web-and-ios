@@ -1,6 +1,8 @@
 # The app shell
 
-Updated 2026-09-18: desktop rails use 184px navigation / 292px decisions at 1280–1535px, then 212px / 320px from 1536px. The status bar wraps to keep the calendar readable; capacity metrics appear from 1536px and remain available in the Office below that width. Agency record is always linked from desktop navigation. Phone navigation remains Office, Clients, Market and More, fixed below the Continue panel so variable status height does not overlap the links. Stocks is available in desktop navigation and the More drawer (shortcut 9).
+Updated 2026-09-19: the shell is iPhone-first below 768px. A safe-area-aware tab bar keeps Office, Clients, Scouting and More under a full-width Continue toolbar. More opens a bottom sheet with every secondary route. Phone layouts use one-column statistics, 44pt minimum actions, document scrolling and keyboard-aware chrome. The installable PWA and thin Xcode wrapper use this same UI and game flow.
+
+Updated 2026-09-18: desktop rails use 184px navigation / 292px decisions at 1280–1535px, then 212px / 320px from 1536px. The status bar wraps to keep the calendar readable; capacity metrics appear from 1536px and remain available in the Office below that width. Agency record is always linked from desktop navigation. Stocks is available in desktop navigation and the More drawer (shortcut 9).
 
 Updated 2026-09-10: `/` is the illustrated office; the prior dashboard lives at `/overview`. Agency, Careers, Market and World join the existing routes. Phone navigation uses Office, Clients, Market and More; every viewport has access to the same decisions drawer. Continue supports bounded event advancement with a shared synchronous guard. The original shell design below is retained as historical context; see [agency expansion](../features/agency-expansion.md).
 
@@ -46,7 +48,7 @@ an agency dashboard.
 
 ### Nav rail (`components/shell/nav-rail.tsx`)
 
-Six sections, each with the CLI's number-key shortcut preserved and shown.
+Nine sections, each with the CLI's number-key shortcut preserved and shown.
 Vertical rather than a horizontal strip because it has to carry per-section
 decision counts, and a strip has nowhere to put those without becoming noise.
 
@@ -54,9 +56,10 @@ The keyboard hint is drawn as a bordered key cap. An unstyled digit sitting
 where a badge goes reads as "5 things need you", which is exactly the confusion
 the badges exist to avoid.
 
-`NavStrip` is the same navigation as a horizontal scroller for viewports too
-narrow for the rail. Both are landmarks with distinct labels (`Main` and
-`Sections`) so assistive tech and tests can tell them apart.
+`PhoneNav` keeps the three most frequent destinations and More in a fixed tab
+bar. The More bottom sheet contains every secondary route. Both phone and
+desktop navigation are landmarks with distinct labels (`Sections` and `Main`)
+so assistive tech and tests can tell them apart.
 
 ### Status bar (`components/shell/status-bar.tsx`)
 
@@ -88,7 +91,7 @@ Desktop-first, degrading rather than reimagining.
 | --- | --- | --- | --- | --- |
 | ≥ 1280px | Rail with labels | Visible | In the rail | Full tables |
 | 768–1279px | Icon-only rail | Hidden; decisions move into the dashboard | Floating | Full tables |
-| < 768px | Horizontal strip | Hidden | Floating | Clients collapses to stacked cards |
+| < 768px | Fixed four-tab bar | Hidden; decisions open from Review | Full-width toolbar above tabs | One-column cards and document scrolling |
 
 The decisions panel on the dashboard is `xl:hidden` — it is a duplicate of the
 rail on wide screens, and the *only* place decisions appear on narrow ones.
@@ -98,7 +101,7 @@ rail on wide screens, and the *only* place decisions appear on narrow ones.
 | Key | Action |
 | --- | --- |
 | `C` | Continue — one week |
-| `1`–`6` | Jump to a section |
+| `1`–`9` | Jump to a section |
 | `Esc` | Close a dialog |
 
 Ignored while typing in a field or while a dialog is open; dialogs own their own

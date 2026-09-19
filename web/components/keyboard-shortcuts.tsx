@@ -1,6 +1,6 @@
 "use client";
 
-// The CLI's muscle memory, preserved: C continues, 1–6 navigate, Esc closes
+// The CLI's muscle memory, preserved: C continues, 1–9 navigate, Esc closes
 // dialogs (the dialogs own that key themselves). Ignored while typing in a
 // field or while a dialog is open.
 //

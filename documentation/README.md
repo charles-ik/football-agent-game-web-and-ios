@@ -8,7 +8,7 @@ design and build plans; this folder records what was actually shipped.
 | [features/investments.md](features/investments.md) | Fictional stock exchange, trading, fees, portfolio accounting and saves |
 | [features/agency-expansion.md](features/agency-expansion.md) | Agency growth, careers, market/loans, persistence, UI and balance observations |
 | [ui/design-system.md](ui/design-system.md) | Colour, type, surfaces, motion, and the primitives every screen is built from |
-| [ui/app-shell.md](ui/app-shell.md) | The three-zone console layout, navigation, and responsive behaviour |
+| [ui/app-shell.md](ui/app-shell.md) | Desktop console, iPhone shell, navigation, PWA and Xcode wrapper |
 | [decisions-model.md](decisions-model.md) | Why "needs a decision" is derived from world state instead of the event feed |
 | [changelog.md](changelog.md) | What changed in the UI overhaul, and the bugs it uncovered |
 

@@ -160,7 +160,18 @@ test('agency expansion is usable on desktop and a narrow phone', async ({page}) 
     await expect(page.locator('main h1')).toBeVisible();
     await expect(page.getByText('Something went wrong',{exact:false})).toHaveCount(0);
   }
-  await page.setViewportSize({width:360,height:800});
+  await page.setViewportSize({width:390,height:844});
+  await page.goto('/');
+  const tabs = page.getByRole('navigation',{name:'Sections'});
+  const continueButton = page.getByRole('button',{name:'Continue to next week'}).filter({visible:true});
+  const officeStats = page.locator('section').filter({hasText:'Agency balance'}).first();
+  await expect(tabs).toBeVisible();
+  await expect(page.getByRole('link',{name:'Scouting',exact:true})).toBeVisible();
+  expect(await officeStats.evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length)).toBe(1);
+  const tabsBox = await tabs.boundingBox();
+  const continueBox = await continueButton.boundingBox();
+  expect(continueBox.y + continueBox.height).toBeLessThanOrEqual(tabsBox.y + 1);
+  expect(continueBox.height).toBeGreaterThanOrEqual(44);
   await page.goto('/market');
   await expect(page.locator('[data-continue="floating"]')).toBeVisible();
   await page.getByRole('button',{name:/Review \d+ decisions/}).filter({visible:true}).click();
@@ -170,7 +181,12 @@ test('agency expansion is usable on desktop and a narrow phone', async ({page}) 
   await page.screenshot({path:'/tmp/fa-market-mobile.png',fullPage:true});
   await page.getByRole('button',{name:'More',exact:true}).click();
   await expect(page.getByRole('dialog',{name:'Around the agency'})).toBeVisible();
-  await page.getByRole('dialog').getByRole('link',{name:'Scouting',exact:true}).click();
+  for (const name of ['Agency','Finances','World','Market','Careers','Stocks','Headquarters','Season review']) {
+    await expect(page.getByRole('dialog').getByRole('link',{name,exact:true})).toBeVisible();
+  }
+  await page.getByRole('dialog').getByRole('link',{name:'Headquarters',exact:true}).click();
+  await expect(page).toHaveURL('/headquarters');
+  await page.getByRole('link',{name:'Scouting',exact:true}).click();
   await expect(page).toHaveURL('/scouting');
 });
 
@@ -209,13 +225,18 @@ test('stock trading reconciles cash and remains usable on a phone', async ({page
   const finances = await (await request.get('http://127.0.0.1:8100/api/finances',{headers})).json();
   expect(finances.history.at(-1).investment_returns.amount).toBeCloseTo(995.4);
   expect(finances.total_commission.amount).toBe(0);
-  await page.setViewportSize({width:360,height:800});
+  await page.setViewportSize({width:390,height:844});
   for (const route of ['/investments','/finances','/season-review','/headquarters','/clients','/careers','/scouting']) {
     await page.goto(route);
     await expect(page.locator('main h1')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), route).toBeTruthy();
   }
   await page.goto('/investments');
+  const phoneTabs = page.getByRole('navigation',{name:'Sections'});
+  await page.getByLabel(/Number of shares/).focus();
+  await expect(phoneTabs).toBeHidden();
+  await page.getByLabel(/Number of shares/).blur();
+  await expect(phoneTabs).toBeVisible();
   await page.screenshot({path:'/tmp/fa-investments-mobile.png',fullPage:true});
   await page.getByRole('button',{name:'More',exact:true}).click();
   await expect(page.getByRole('dialog').getByRole('link',{name:'Stocks',exact:true})).toBeVisible();

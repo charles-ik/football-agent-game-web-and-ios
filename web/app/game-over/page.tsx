@@ -6,6 +6,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { Money } from "@/components/money";
+import { buttonClass } from "@/components/ui";
 import { getGameState, isApiError } from "@/lib/api";
 
 export default async function GameOverPage() {
@@ -19,7 +20,7 @@ export default async function GameOverPage() {
   if (!state.game_over) redirect("/");
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-4">
+    <main className="flex min-h-dvh items-center justify-center px-[max(1rem,env(safe-area-inset-left))] py-[max(2rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(2rem,env(safe-area-inset-bottom))]">
       <div className="anim-rise w-full max-w-lg rounded-xl border border-bad/50 bg-panel p-8 text-center shadow-2xl shadow-bad/10">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.3em] text-bad">
           Game over
@@ -42,7 +43,7 @@ export default async function GameOverPage() {
         </dl>
         <Link
           href="/new-game"
-          className="inline-block rounded-lg bg-accent px-6 py-2.5 font-semibold text-ink transition-colors hover:bg-accent/90"
+          className={buttonClass.primary}
         >
           Start again
         </Link>

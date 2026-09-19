@@ -3,9 +3,7 @@
 A football agent management game. You run an agency: scout talent on incomplete
 information, sign clients, and take your cut of their moves.
 
-The **Python simulation and Next.js web game** explore agency building, client careers and transfer strategy. The iOS version is a later,
-deliberate rewrite. The rules and the tuned numbers are the asset; the terminal
-UI is disposable.
+The **Python simulation and Next.js game** explore agency building, client careers and transfer strategy. The web game is an installable, iPhone-first PWA and also ships with a thin Xcode wrapper; both keep the engine as the single source of game rules.
 
 ```
 Scout on incomplete information
@@ -49,6 +47,8 @@ decisions would evaporate.
 The browser game also includes agency departments, client careers, loans and a
 [fictional stock exchange](documentation/features/investments.md) for investing
 agency cash. Five original illustrations accompany the finance and progression UI.
+
+For iPhone, run `make dev-ios`, open [`ios/FootballAgent.xcodeproj`](ios/FootballAgent.xcodeproj) in Xcode, choose the connected phone and press Run.
 
 ## Documentation
 

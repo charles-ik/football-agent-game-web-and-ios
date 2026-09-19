@@ -23,7 +23,7 @@ export default async function FinancesPage() {
   return <div className="space-y-5">
     <ScreenHeader title="Finances" note="Know what keeps the lights on, what each week costs, and how much room you have for your next move." />
     <SceneBanner image="agency-desk" eyebrow="The business behind the game" title="Make every deal count." description="Retainers build a foundation. Commission funds your ambition. Keep enough in reserve to reach the next opportunity." />
-    <section className="grid grid-cols-2 gap-3 2xl:grid-cols-4">
+    <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
       <StatTile label="Agency balance" value={<Money value={cash} />} tone={insolvent ? "bad" : "default"} />
       <StatTile label="Weekly cash flow" value={<Money value={weekly_net} signed />} tone={burning ? "warn" : "good"} sub="Before commission and investments" />
       <StatTile label="Cash runway" value={runway} tone={insolvent || (weeks !== null && weeks <= 26) ? "bad" : "default"} sub={insolvent ? "Restore a positive balance to recover." : "At today’s income and commitments"} />

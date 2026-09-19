@@ -57,7 +57,7 @@ export function InvestmentDesk({ market, revision }: { market: InvestmentDTO; re
   }
 
   return <div className="space-y-5">
-    <section className="grid grid-cols-2 gap-3 2xl:grid-cols-4">
+    <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
       <StatTile label="Available cash" value={money(market.cash)} sub="Shared with your agency"/>
       <StatTile label="Portfolio value" value={money(market.portfolio_value)} sub="Before selling fees"/>
       <StatTile label="Unrealized gain" value={gain(market.unrealized_gain)} tone={market.unrealized_gain >= 0 ? "good" : "warn"} sub="Includes buy fees; excludes selling fees"/>

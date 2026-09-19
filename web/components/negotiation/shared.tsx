@@ -88,7 +88,7 @@ export function NegotiationOutcome({
         </p>
       )}
       {result && result.events.length > 0 && (
-        <div className="mt-2 max-h-40 overflow-y-auto rounded-md border border-line bg-panel p-1">
+        <div className="mt-2 rounded-md border border-line bg-panel p-1 md:max-h-40 md:overflow-y-auto">
           <EventList events={result.events} />
         </div>
       )}

@@ -11,14 +11,15 @@ set of playable routes.
 
 - The Python simulation, FastAPI service, DTOs, save format, and game rules stay
   authoritative and unchanged.
-- The existing Next.js application remains the only frontend. There is no
-  SwiftUI, React Native, or wrapper application.
+- The existing Next.js application remains the only game frontend. A thin
+  SwiftUI `WKWebView` shell packages that same PWA for direct installation from
+  Xcode; it contains no duplicate screens or game rules.
 - Desktop behavior remains usable. The redesigned shell and component rules
   apply primarily below the existing `md` breakpoint.
 - The app is installable and launches in standalone mode, but offline gameplay
   is out of scope because simulation state and saves live on the server.
-- No push notifications, background sync, native packaging, or App Store
-  distribution are included.
+- No push notifications, background sync, or App Store distribution workflow
+  is included.
 
 ## iPhone application shell
 
@@ -84,6 +85,27 @@ not been installed.
 No service worker is added. Caching a server-rendered, session-bound game would
 create stale or misleading state without providing genuine offline play.
 
+## Xcode wrapper
+
+`ios/FootballAgent.xcodeproj` is a shared-scheme iPhone application using
+SwiftUI and `WKWebView`. It loads the PWA from a build-configured URL and fills
+the device screen so the web app's own safe-area-aware chrome remains
+authoritative. The wrapper adds only native loading and connection-failure
+states, pull to refresh, back/forward gestures, and external-link handoff.
+
+The checked-in development configuration targets
+`http://MacBook-Pro.local:3000`, allowing a physical iPhone on the same local
+network to reach the Mac. A `make dev-ios` command runs the existing FastAPI and
+Next.js servers with the web server bound to the LAN. The Info.plist declares
+local-network usage and permits local networking without allowing arbitrary
+internet HTTP traffic.
+
+The Xcode target uses automatic signing and a shared Run scheme. Xcode chooses
+the Apple development team already configured on the Mac; no certificate,
+profile, or account data is committed. Selecting the connected iPhone and
+pressing Run installs the wrapper. A hosted HTTPS build later requires only a
+configuration URL change.
+
 ## Data flow and failures
 
 Server Components and Server Actions continue to call FastAPI exactly as they
@@ -107,6 +129,9 @@ dialogs, or focused form controls when the iPhone keyboard is visible.
   content and fixed bottom chrome, and 44-pixel minimum primary tap targets.
 - Type checking, component tests, production build, Python tests, and the full
   end-to-end journey must pass.
+- `xcodebuild` must compile the shared scheme for an iOS Simulator destination,
+  and the project must be opened in Xcode ready for automatic signing and a
+  physical-device Run.
 
 ## References
 

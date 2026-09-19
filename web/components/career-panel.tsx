@@ -77,7 +77,7 @@ export function CareerPanel({ client, revision }: { client: ClientCareer; revisi
         {client.trust_explanation.length > 0 && <section aria-label="Trust explanation"><h3 className="t-section mb-2">What shaped the relationship</h3><ul className="space-y-1 text-sm text-dim">{client.trust_explanation.map((reason, index) => <li key={`${index}:${reason}`}>{reason}</li>)}</ul></section>}
         <details className="border-t border-line pt-3">
           <summary className="cursor-pointer text-sm font-medium focus-visible:outline-accent">Career timeline <span className="text-muted">({client.timeline.length})</span></summary>
-          <ol className="mt-3 max-h-80 space-y-3 overflow-y-auto pl-1">{[...client.timeline].reverse().map((event, index) => (
+          <ol className="mt-3 space-y-3 pl-1 md:max-h-80 md:overflow-y-auto">{[...client.timeline].reverse().map((event, index) => (
             <li key={`${index}:${event.week}:${event.kind}`} className="border-l border-line pl-3 text-sm"><span className="t-note">Week {event.week}</span><p className="mt-0.5 text-dim">{event.message}{event.trust_delta !== 0 && <span className={event.trust_delta > 0 ? "text-good" : "text-warn"}> · Trust {event.trust_delta > 0 ? "+" : ""}{event.trust_delta}</span>}</p></li>
           ))}</ol>
         </details>

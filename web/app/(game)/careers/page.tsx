@@ -21,7 +21,7 @@ export default async function CareersPage() {
         {careers.alumni.length ? <div className="grid gap-3 lg:grid-cols-2">{careers.alumni.map((alumnus) => <Panel key={alumnus.player_id} className="p-4">
           <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="font-medium">{alumnus.name}</h3><Badge>Weeks {alumnus.joined_week}–{alumnus.left_week}</Badge></div>
           <p className="t-note mt-2">{alumnus.reason.replaceAll("client.", "").replaceAll("_", " ")} · Final trust {Math.round(alumnus.trust)}</p>
-          <details className="mt-3"><summary className="cursor-pointer text-sm">Their time with the agency</summary><ol className="mt-3 max-h-64 space-y-2 overflow-y-auto">{[...alumnus.timeline].reverse().map((event, index) => <li key={`${index}:${event.week}`} className="border-l border-line pl-3 text-sm"><span className="text-muted">Week {event.week}</span><p className="text-dim">{event.message}</p></li>)}</ol></details>
+          <details className="mt-3"><summary className="cursor-pointer text-sm">Their time with the agency</summary><ol className="mt-3 space-y-2 md:max-h-64 md:overflow-y-auto">{[...alumnus.timeline].reverse().map((event, index) => <li key={`${index}:${event.week}`} className="border-l border-line pl-3 text-sm"><span className="text-muted">Week {event.week}</span><p className="text-dim">{event.message}</p></li>)}</ol></details>
         </Panel>)}</div> : <Panel className="p-5"><p className="t-note">Former clients will stay in this book, together with the history you built.</p></Panel>}
       </section>
     </div>

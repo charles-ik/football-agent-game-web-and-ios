@@ -406,7 +406,7 @@ function FocusDialog({
         maybe into a certainty before the window opens.
       </p>
       {error && <p role="alert" className="mb-3 text-sm text-bad">{error}</p>}
-      <div aria-busy={busy} className="max-h-64 space-y-1 overflow-y-auto">
+      <div aria-busy={busy} className="space-y-1 md:max-h-64 md:overflow-y-auto">
         {reportsInRegion.length === 0 && (
           <p className="text-sm text-faint">No reports in his region yet.</p>
         )}

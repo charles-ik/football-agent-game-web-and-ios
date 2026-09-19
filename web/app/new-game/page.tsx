@@ -20,7 +20,7 @@ export default async function NewGamePage() {
   const saves = await getSaves();
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-4 py-12">
+    <main className="mx-auto flex min-h-dvh max-w-2xl flex-col justify-center px-[max(1rem,env(safe-area-inset-left))] py-12 pt-[max(3rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(3rem,env(safe-area-inset-bottom))]">
       <header className="mb-8">
         <div className="relative mb-7 h-52 overflow-hidden rounded-xl border border-line"><Image src="/images/scouting-ground.jpg" alt="A quiet football training ground in the morning light" fill priority sizes="(max-width: 768px) 100vw, 800px" className="object-cover"/></div>
         <p className="t-label mb-2 text-accent">An agency, from nothing</p>

@@ -97,7 +97,7 @@ make web          # Next.js on http://localhost:3000
 
 Then open **http://localhost:3000**. Start a new agency (note the seed — same
 seed, same world), assign your scout, and press **Continue**. Keyboard: `C`
-continues, `1`–`6` switch screens, `Esc` closes dialogs.
+continues, `1`–`9` switch screens, `Esc` closes dialogs.
 
 ### Windows PowerShell
 
@@ -146,6 +146,19 @@ worth knowing:
   binds to localhost. Sessions and live negotiations are in-memory.
 * A negotiation left open across a Continue lapses — the attempt is already
   spent, exactly as in the CLI.
+
+## Run on iPhone from Xcode
+
+The iPhone app is a signed SwiftUI/WebKit shell around the same responsive game. It connects to the Next.js server on this Mac; it does not duplicate the engine or require a separate mobile backend.
+
+```bash
+make dev-ios
+open ios/FootballAgent.xcodeproj
+```
+
+In Xcode, choose your connected iPhone and press Run. The project already uses the configured Personal Team with automatic signing. Keep the Mac and iPhone on the same local network and leave `make dev-ios` running while playing. Accept the local-network prompt on first launch.
+
+The development URL is configured in `ios/Config.xcconfig`. If the Mac's Local Hostname changes from `MacBook-Pro.local`, update `FOOTBALL_AGENT_HOST` there.
 
 ## Run the tests
 

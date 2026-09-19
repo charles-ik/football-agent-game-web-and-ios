@@ -4,16 +4,17 @@
 
 **Goal:** Make the existing Football Agent web game an installable, simple, iPhone-first PWA while preserving its Python simulation, game flow, routes, and editorial artwork.
 
-**Architecture:** Keep the Python engine, FastAPI service, Server Components, Server Actions, session cookies, and saves unchanged. Add install metadata and static icons, then reshape the existing responsive shell and shared primitives below `md`; individual screens only receive mechanical mobile-density fixes where shared components cannot cover them.
+**Architecture:** Keep the Python engine, FastAPI service, Server Components, Server Actions, session cookies, and saves unchanged. Add install metadata and static icons, then reshape the existing responsive shell and shared primitives below `md`; individual screens only receive mechanical mobile-density fixes where shared components cannot cover them. Package the completed PWA in a thin SwiftUI `WKWebView` Xcode target with no duplicated game UI or rules.
 
-**Tech Stack:** Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4, Vitest/Testing Library, Playwright, FastAPI/Python, macOS `qlmanage` and `sips` for checked-in PNG icons.
+**Tech Stack:** Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4, Vitest/Testing Library, Playwright, FastAPI/Python, SwiftUI, WebKit, Xcode 26, macOS `qlmanage` and `sips` for checked-in PNG icons.
 
 **Spec:** `docs/superpowers/specs/2026-09-19-iphone-first-pwa-design.md`
 
 ## Global Constraints
 
 - The Python simulation, FastAPI service, DTOs, save format, and game rules stay authoritative and unchanged.
-- The existing Next.js application remains the only frontend; add no SwiftUI, React Native, wrapper, service worker, push notification, or background-sync implementation.
+- The existing Next.js application remains the only game frontend; the SwiftUI wrapper hosts it and contains no duplicate screens or game rules.
+- Add no React Native, service worker, push notification, or background-sync implementation.
 - Preserve every playable route and the existing office, scouting, career, headquarters, investment, and agency artwork.
 - Keep desktop behavior usable; the new shell and component rules apply primarily below `md`.
 - Use a four-item phone tab bar containing Office, Clients, Scouting, and More; tabs perform navigation only.
@@ -68,7 +69,7 @@ describe("iPhone PWA metadata", () => {
     });
     expect(value.icons).toEqual([
       { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
+      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ]);
     expect(metadata.manifest).toBe("/manifest.webmanifest");
     expect(metadata.appleWebApp).toMatchObject({ capable: true, statusBarStyle: "black-translucent" });
@@ -102,7 +103,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#17251f",
     icons: [
       { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
+      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }
@@ -646,3 +647,133 @@ Expected: `## codex/iphone-port` with no uncommitted files.
 Run: `git log --oneline master..HEAD`
 
 Expected: the design, installability, phone shell, screen adaptation, and documentation commits appear in order.
+
+---
+
+### Task 5: Xcode-ready iPhone wrapper
+
+**Files:**
+- Create: `ios/Config.xcconfig`
+- Create: `ios/README.md`
+- Create: `ios/FootballAgent/FootballAgentApp.swift`
+- Create: `ios/FootballAgent/ContentView.swift`
+- Create: `ios/FootballAgent/Info.plist`
+- Create: `ios/FootballAgent/Assets.xcassets/Contents.json`
+- Create: `ios/FootballAgent/Assets.xcassets/AccentColor.colorset/Contents.json`
+- Create: `ios/FootballAgent/Assets.xcassets/AppIcon.appiconset/Contents.json`
+- Create: `ios/FootballAgent/Assets.xcassets/AppIcon.appiconset/AppIcon.png`
+- Create: `ios/FootballAgent.xcodeproj/project.pbxproj`
+- Create: `ios/FootballAgent.xcodeproj/project.xcworkspace/contents.xcworkspacedata`
+- Create: `ios/FootballAgent.xcodeproj/xcshareddata/xcschemes/FootballAgent.xcscheme`
+- Modify: `Makefile:1-22`
+- Modify: `documentation/ui/app-shell.md`
+- Modify: `documentation/changelog.md`
+
+**Interfaces:**
+- Consumes: the PWA at `http://MacBook-Pro.local:3000` in development and the existing `make api` / `make web` processes.
+- Produces: shared Xcode scheme `FootballAgent`, automatic-signing iOS application target `FootballAgent`, and `make dev-ios` for a physical phone on the same LAN.
+
+- [ ] **Step 1: Add the LAN development command and build configuration**
+
+Add a `dev-ios` target that keeps FastAPI private to the Mac and exposes only
+Next.js to the LAN:
+
+```make
+.PHONY: dev api web dev-ios test
+
+dev-ios:
+	@$(MAKE) api & (cd web && npm run dev -- --hostname 0.0.0.0) & wait
+```
+
+Create `ios/Config.xcconfig`:
+
+```xcconfig
+PRODUCT_BUNDLE_IDENTIFIER = com.customlogicai.footballagent
+FOOTBALL_AGENT_SCHEME = http
+FOOTBALL_AGENT_HOST = MacBook-Pro.local
+FOOTBALL_AGENT_PORT = 3000
+IPHONEOS_DEPLOYMENT_TARGET = 17.0
+SWIFT_VERSION = 5.0
+CODE_SIGN_STYLE = Automatic
+```
+
+- [ ] **Step 2: Add the SwiftUI WebKit shell**
+
+`FootballAgentApp.swift` launches `ContentView`. `ContentView.swift` defines:
+
+```swift
+@main
+struct FootballAgentApp: App {
+    var body: some Scene { WindowGroup { ContentView() } }
+}
+```
+
+The same file set includes `AppConfiguration`, `BrowserState`, and
+`GameWebView: UIViewRepresentable`. Construct the URL from the three Info.plist
+keys populated by `Config.xcconfig`; use `WKNavigationDelegate` for loading and
+error state, `UIRefreshControl` for pull to refresh,
+`allowsBackForwardNavigationGestures = true`, and `UIApplication.open` for
+non-app hosts. The WebView ignores native safe areas because the PWA already
+uses `viewport-fit=cover` and `env(safe-area-inset-*)`. The native overlay shows
+a spinner during first load and the URL plus a Retry button after a connection
+failure.
+
+- [ ] **Step 3: Add Info.plist, app assets, and the shared Xcode project**
+
+Info.plist includes portrait orientation, `NSLocalNetworkUsageDescription`,
+`NSAppTransportSecurity.NSAllowsLocalNetworking = true`, the three
+`FootballAgent*` URL values, and standard launch-screen generation. The project
+uses the Swift sources, asset catalog, Info.plist, `Config.xcconfig`, automatic
+signing, and a shared Run/Test/Profile/Archive scheme.
+
+Render the 1024px iOS icon from the same checked-in PWA SVG:
+
+```bash
+mkdir -p /tmp/football-agent-ios-icon
+qlmanage -t -s 1024 -o /tmp/football-agent-ios-icon web/public/icons/football-agent.svg
+sips -z 1024 1024 /tmp/football-agent-ios-icon/football-agent.svg.png --out ios/FootballAgent/Assets.xcassets/AppIcon.appiconset/AppIcon.png
+```
+
+- [ ] **Step 4: Verify the Xcode project and LAN host**
+
+Run: `xcodebuild -list -project ios/FootballAgent.xcodeproj`
+
+Expected: project, target, and shared scheme are all named `FootballAgent`.
+
+Run: `xcodebuild -project ios/FootballAgent.xcodeproj -scheme FootballAgent -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build`
+
+Expected: `** BUILD SUCCEEDED **`.
+
+Run: `dscacheutil -q host -a name MacBook-Pro.local`
+
+Expected: the Mac's local Bonjour name resolves.
+
+- [ ] **Step 5: Document the one-button phone run**
+
+`ios/README.md` records exactly:
+
+```markdown
+1. Run `make dev-ios` from the repository root.
+2. Open `ios/FootballAgent.xcodeproj`.
+3. Select the connected iPhone in Xcode's destination picker.
+4. Press Run. Automatic signing uses the Apple account already configured in Xcode.
+
+The iPhone and Mac must be on the same local network. If the Mac's Bonjour name
+changes, update `FOOTBALL_AGENT_HOST` in `ios/Config.xcconfig`. For hosting,
+change scheme, host and port there; no Swift code changes are required.
+```
+
+Update the UI documentation and changelog to state that the same PWA can now be
+installed directly through the checked-in Xcode wrapper.
+
+- [ ] **Step 6: Commit and open the project in Xcode**
+
+```bash
+git add Makefile ios documentation/ui/app-shell.md documentation/changelog.md docs/superpowers/specs/2026-09-19-iphone-first-pwa-design.md docs/superpowers/plans/2026-09-19-iphone-first-pwa.md
+git commit -m "feat: add Xcode iPhone wrapper"
+open -a Xcode ios/FootballAgent.xcodeproj
+```
+
+Expected: Xcode opens the FootballAgent shared scheme. With `make dev-ios`
+running, selecting the configured iPhone and pressing Run installs and launches
+the game.

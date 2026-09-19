@@ -43,10 +43,10 @@ export function OfficeScene({name,level,people,milestones}: {name:string;level:n
    </svg>
    <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
      <span className="rounded-full border border-white/20 bg-[#14271f]/85 px-3 py-1 text-xs text-[#eee3c7]">Your agency, taking shape</span>
-     <Link href="/agency" className="flex items-center gap-1 rounded-full bg-[#eee3c7] px-3 py-1.5 text-xs font-semibold text-[#20392e]">Manage office <ArrowUpRight size={13}/></Link>
+     <Link href="/agency" className="flex min-h-11 items-center gap-1 rounded-full bg-[#eee3c7] px-3 py-1.5 text-xs font-semibold text-[#20392e]">Manage office <ArrowUpRight size={13}/></Link>
    </div>
-   <div className="flex flex-wrap gap-2 border-t border-[#bba477]/20 bg-[#182a23] p-3">
-     {[['/agency','Staff & departments'],['/scouting','Scouting room'],['/market','Deal room'],['/careers','Client lounge'],['/season-review','Trophy shelf']].map(([href,label])=><Link key={href} href={href} className="rounded-lg border border-[#bba477]/25 px-3 py-2 text-xs text-[#e5ddc6] transition hover:bg-white/10">{label} <span aria-hidden>↗</span></Link>)}
+   <div className="flex gap-2 overflow-x-auto border-t border-[#bba477]/20 bg-[#182a23] p-3">
+     {[['/agency','Staff & departments'],['/scouting','Scouting room'],['/market','Deal room'],['/careers','Client lounge'],['/season-review','Trophy shelf']].map(([href,label])=><Link key={href} href={href} className="flex min-h-11 shrink-0 items-center rounded-lg border border-[#bba477]/25 px-3 py-2 text-xs text-[#e5ddc6] transition hover:bg-white/10">{label} <span aria-hidden>↗</span></Link>)}
    </div>
  </section>;
 }

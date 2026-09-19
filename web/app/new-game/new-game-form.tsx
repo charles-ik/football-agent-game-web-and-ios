@@ -76,7 +76,7 @@ export function NewGameForm({ saves }: { saves: SaveSlot[] }) {
             maxLength={48}
           />
         </label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           <label className="text-sm">Agency emblem<select value={emblem} onChange={e=>setEmblem(e.target.value)} className={inputClass}>{['shield','star','crown','globe'].map(x=><option key={x}>{x}</option>)}</select></label>
           <label className="text-sm">Agency colour<select value={accent} onChange={e=>setAccent(e.target.value)} className={inputClass}>{['emerald','blue','amber','violet'].map(x=><option key={x}>{x}</option>)}</select></label>
         </div>
@@ -134,7 +134,7 @@ export function NewGameForm({ saves }: { saves: SaveSlot[] }) {
           )}
         </div>
         {manualEntry ? (
-          <div className="flex gap-2">
+          <div className="grid gap-2 sm:grid-cols-[1fr_auto]">
             <input
               value={manualSlot}
               onChange={(event) => setManualSlot(event.target.value)}
@@ -152,7 +152,7 @@ export function NewGameForm({ saves }: { saves: SaveSlot[] }) {
         ) : saves.length === 0 ? (
           <p className="text-sm text-faint">No saves on disk yet.</p>
         ) : (
-          <div className="flex gap-2">
+          <div className="grid gap-2 sm:grid-cols-[1fr_auto]">
             <select
               value={loadSlot}
               onChange={(event) => setLoadSlot(event.target.value)}

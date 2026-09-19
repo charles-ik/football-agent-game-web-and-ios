@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-19 — iPhone-first PWA and Xcode build
+
+- **Added:** installable PWA metadata, generated icons, standalone portrait display and iPhone safe-area support.
+- **Changed:** phone navigation is now Office, Clients, Scouting and More; Continue has a dedicated toolbar, secondary routes use a bottom sheet, and dense panels stack into one column.
+- **Added:** a minimal signed SwiftUI/WebKit Xcode project using the configured Personal Team, plus `make dev-ios` for local-network play.
+- **Validated:** component tests, TypeScript, production web build, browser game flows, Python tests, and a signed arm64 iPhone build.
+
 ## 2026-09-19 — Windows run instructions
 
 - **Added:** exact native Windows PowerShell setup and launch commands for the browser and terminal games, without requiring virtual-environment script activation or Make.
