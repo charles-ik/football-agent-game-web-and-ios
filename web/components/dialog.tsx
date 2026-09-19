@@ -68,7 +68,7 @@ export function Dialog({
   if (!open) return null;
   return (
     <div
-      className={`fixed inset-0 z-40 flex bg-black/70 backdrop-blur-sm ${side ? "justify-end" : "items-center justify-center p-4"}`}
+      className={`fixed inset-0 z-40 flex items-end bg-black/70 px-0 pt-[max(1rem,env(safe-area-inset-top))] backdrop-blur-sm sm:items-center sm:p-4 ${side ? "justify-end" : "justify-center"}`}
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
@@ -80,8 +80,12 @@ export function Dialog({
         aria-modal="true"
         aria-label={title}
         tabIndex={-1}
-        className={`anim-rise max-h-[85vh] overflow-y-auto rounded-xl border border-line bg-panel shadow-2xl shadow-black/70 outline-none ${
-          side ? "h-dvh max-h-dvh w-full rounded-none sm:max-w-2xl" : wide ? "w-full max-w-2xl" : "w-full max-w-md"
+        className={`anim-rise max-h-[calc(100dvh-env(safe-area-inset-top)-1rem)] w-full overscroll-contain overflow-y-auto rounded-t-2xl border border-line bg-panel pb-[env(safe-area-inset-bottom)] shadow-2xl shadow-black/70 outline-none sm:max-h-[85vh] sm:rounded-xl sm:pb-0 ${
+          side
+            ? "sm:h-dvh sm:max-h-dvh sm:max-w-2xl sm:rounded-none"
+            : wide
+              ? "sm:max-w-2xl"
+              : "sm:max-w-md"
         }`}
       >
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-panel/95 px-4 py-3 backdrop-blur">

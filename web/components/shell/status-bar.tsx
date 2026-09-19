@@ -27,9 +27,9 @@ export function StatusBar({ state }: { state: GameState }) {
   const runwayCritical = agency.cash.amount < 0 || (runway !== null && runway <= 26);
 
   return (
-    <header className="sticky top-0 z-20 flex min-h-14 flex-wrap items-center gap-x-4 gap-y-2 py-2 border-b border-line bg-panel/80 px-4 backdrop-blur md:px-5">
+    <header className="sticky top-0 z-20 flex min-h-14 items-center gap-3 border-b border-line bg-panel/90 px-[max(1rem,env(safe-area-inset-left))] py-2 pt-[max(.5rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] backdrop-blur md:flex-wrap md:gap-x-4 md:gap-y-2 md:px-5">
       {/* Where you are in the season. */}
-      <div className="flex min-w-0 max-w-full items-center gap-2">
+      <div className="flex min-w-0 flex-1 items-center gap-2">
         {calendar.window_open ? (
           <DoorOpen size={15} className="shrink-0 text-accent" aria-hidden />
         ) : (
@@ -58,7 +58,7 @@ export function StatusBar({ state }: { state: GameState }) {
         </div>
       </div>
 
-      <div className="ml-auto flex items-center gap-3 md:gap-4">
+      <div className="ml-auto flex shrink-0 items-center gap-3 md:gap-4">
         <Metric label="Cash">
           <Money value={agency.cash} className="text-sm font-semibold" />
         </Metric>

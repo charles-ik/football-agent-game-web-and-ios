@@ -62,7 +62,14 @@ export function ContinueButton({ pending, revision, decisions = [], variant = "f
   }, []);
 
   return <>
-    <div className={cn(variant === "rail" ? "space-y-2" : "fixed bottom-[calc(76px+env(safe-area-inset-bottom))] md:bottom-0 left-0 right-0 z-30 border-t border-line bg-panel/95 p-3 pb-3 backdrop-blur xl:hidden")}>
+    <div
+      data-phone-chrome={variant === "floating" ? "" : undefined}
+      className={cn(
+        variant === "rail"
+          ? "space-y-2"
+          : "fixed inset-x-0 bottom-[calc(64px+env(safe-area-inset-bottom))] z-30 border-t border-line bg-panel/95 px-[max(.75rem,env(safe-area-inset-left))] py-2 pr-[max(.75rem,env(safe-area-inset-right))] backdrop-blur md:bottom-0 md:p-3 xl:hidden",
+      )}
+    >
       <div className="flex min-w-0 items-center gap-2">
         <button onClick={() => setReview(true)} className={cn(buttonClass.secondary, "flex shrink-0 items-center gap-2 !px-3 !text-sm")} aria-label={`Review ${pending} decisions`}>
           <ListTodo size={16}/><span>{pending} open</span>
@@ -71,7 +78,7 @@ export function ContinueButton({ pending, revision, decisions = [], variant = "f
           {busy ? <Loader2 size={16} className="animate-spin"/> : <ArrowRight size={16}/>}{busy ? "Advancing…" : "Continue"}
         </button>
       </div>
-      <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+      <div className={cn("mt-2 flex-wrap items-center justify-between gap-2", variant === "floating" ? "hidden md:flex" : "flex")}>
         {automatic ? <button className={buttonClass.danger} onClick={() => {cancel.current = true; setStatus("Stopping after this week…");}}>Stop advancing</button> :
           <button disabled={busy} onClick={() => pending > 0 ? setReview(true) : void press(true)} className={cn(buttonClass.ghost, "flex items-center gap-1 !px-2 !text-xs")}><FastForward size={13}/>To next event</button>}
         <span role="status" className="text-xs text-faint">{status || "One turn · one week"}</span>

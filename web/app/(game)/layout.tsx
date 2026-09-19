@@ -58,13 +58,13 @@ export default async function GameLayout({ children }: { children: ReactNode }) 
   }
 
   return (
-    <GameRevision revision={state.revision}><div className="flex min-h-screen" style={{"--color-accent": accentColors[management.identity.accent]} as CSSProperties}>
+    <GameRevision revision={state.revision}><div className="flex min-h-dvh" style={{"--color-accent": accentColors[management.identity.accent]} as CSSProperties}>
       <NavRail counts={navCounts} agencyName={state.agency.name} emblem={management.identity.emblem} />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <StatusBar state={state} />
         <NavStrip counts={navCounts} />
-        <main className="min-w-0 flex-1 px-4 py-5 pb-72 md:pb-40 md:px-6 xl:pb-6">
+        <main className="min-w-0 flex-1 px-[max(1rem,env(safe-area-inset-left))] py-4 pb-[calc(152px+env(safe-area-inset-bottom))] pr-[max(1rem,env(safe-area-inset-right))] md:px-6 md:pb-40 xl:pb-6">
           <div className="mx-auto w-full max-w-[1400px]">{children}</div>
         </main>
       </div>

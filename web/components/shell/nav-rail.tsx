@@ -38,6 +38,21 @@ export const NAV = [
   { href: "/investments", label: "Stocks", key: "9", Icon: ChartNoAxesCombined },
 ] as const;
 
+export const PHONE_TABS = NAV.filter(({ href }) =>
+  ["/", "/clients", "/scouting"].includes(href),
+);
+
+export const MORE_NAV = [
+  NAV.find(({ href }) => href === "/agency")!,
+  NAV.find(({ href }) => href === "/finances")!,
+  NAV.find(({ href }) => href === "/world")!,
+  NAV.find(({ href }) => href === "/market")!,
+  NAV.find(({ href }) => href === "/careers")!,
+  NAV.find(({ href }) => href === "/investments")!,
+  { href: "/headquarters", label: "Headquarters", key: "", Icon: Building2 },
+  { href: "/season-review", label: "Season review", key: "", Icon: Trophy },
+] as const;
+
 export function NavRail({
   counts,
   agencyName,
@@ -123,16 +138,72 @@ export function NavRail({
 /** The same navigation as a horizontal strip, for viewports too narrow for a rail. */
 export function NavStrip({ counts }: { counts: Record<string, number> }) {
   const pathname = usePathname();
-  const [more,setMore] = useState(false);
-  const main = NAV.filter(item => ["/", "/clients", "/market"].includes(item.href));
-  return <>
-    <nav aria-label="Sections" className="fixed bottom-0 left-0 right-0 z-30 grid h-[calc(76px+env(safe-area-inset-bottom))] grid-cols-4 pb-[env(safe-area-inset-bottom)] border-t border-line bg-panel/95 px-2 py-1 backdrop-blur md:hidden">
-      {main.map(({href,label,Icon})=><Link key={href} href={href} aria-current={pathname===href?"page":undefined} className={cn("flex flex-col items-center gap-1 rounded-lg px-2 py-2 text-xs",pathname===href?"bg-panel-3 text-accent":"text-dim")}><Icon size={17}/>{label}{(counts[href]??0)>0&&<span className="sr-only">{counts[href]} open decisions</span>}</Link>)}
-      <button onClick={()=>setMore(true)} className="flex flex-col items-center gap-1 rounded-lg border border-accent/50 bg-accent/10 px-2 py-2 text-xs font-semibold text-accent shadow-sm"><MoreHorizontal size={17}/>More</button>
-    </nav>
-    <Dialog open={more} onClose={()=>setMore(false)} title="Around the agency">
-      <div className="grid grid-cols-2 gap-2">{NAV.map(({href,label,Icon})=><Link key={href} href={href} onClick={()=>setMore(false)} className="flex items-center gap-2 rounded-lg border border-line p-4 text-sm"><Icon size={17}/>{label}</Link>)}</div>
-      <Link href="/season-review" onClick={()=>setMore(false)} className="mt-3 block p-3 text-sm text-accent">Season review & milestones ↗</Link>
-    </Dialog>
-  </>;
+  const [more, setMore] = useState(false);
+  const moreActive = MORE_NAV.some(
+    ({ href }) => pathname === href || pathname.startsWith(`${href}/`),
+  );
+
+  return (
+    <>
+      <nav
+        data-phone-chrome
+        aria-label="Sections"
+        className="fixed inset-x-0 bottom-0 z-30 grid h-[calc(64px+env(safe-area-inset-bottom))] grid-cols-4 border-t border-line bg-panel/95 px-[max(.5rem,env(safe-area-inset-left))] pb-[env(safe-area-inset-bottom)] pr-[max(.5rem,env(safe-area-inset-right))] backdrop-blur md:hidden"
+      >
+        {PHONE_TABS.map(({ href, label, Icon }) => {
+          const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+          const count = counts[href] ?? 0;
+          return (
+            <Link
+              key={href}
+              href={href}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "relative flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-lg px-2 text-xs",
+                active ? "text-accent" : "text-dim",
+              )}
+            >
+              <Icon size={19} aria-hidden />
+              <span>{label}</span>
+              {count > 0 && (
+                <span
+                  className="num absolute right-3 top-1 rounded-full bg-accent px-1.5 text-[11px] font-bold text-ink"
+                  aria-label={`${count} open decisions`}
+                >
+                  {count}
+                </span>
+              )}
+            </Link>
+          );
+        })}
+        <button
+          type="button"
+          aria-current={moreActive ? "page" : undefined}
+          onClick={() => setMore(true)}
+          className={cn(
+            "flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-lg px-2 text-xs",
+            moreActive ? "text-accent" : "text-dim",
+          )}
+        >
+          <MoreHorizontal size={19} aria-hidden />
+          <span>More</span>
+        </button>
+      </nav>
+      <Dialog open={more} onClose={() => setMore(false)} title="Around the agency">
+        <nav aria-label="More sections" className="divide-y divide-line">
+          {MORE_NAV.map(({ href, label, Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setMore(false)}
+              className="flex min-h-11 items-center gap-3 py-3 text-sm"
+            >
+              <Icon size={18} aria-hidden />
+              <span>{label}</span>
+            </Link>
+          ))}
+        </nav>
+      </Dialog>
+    </>
+  );
 }
