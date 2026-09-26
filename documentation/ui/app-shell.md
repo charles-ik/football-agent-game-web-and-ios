@@ -1,5 +1,7 @@
 # The app shell
 
+Updated 2026-09-26: `ios/FootballAgent.xcodeproj` now builds a fully native SwiftUI game rather than a WebKit wrapper. Its five persistent tabs are Office, Clients, Scouting, Market and More. A safe-area Continue bar sits above the tab bar, native sheets handle bounded negotiations, and locked systems remain visible with their exact progression requirement. The web shell described below remains the browser edition.
+
 Updated 2026-09-19: the shell is iPhone-first below 768px. A safe-area-aware tab bar keeps Office, Clients, Scouting and More under a full-width Continue toolbar. More opens a bottom sheet with every secondary route. Phone layouts use one-column statistics, 44pt minimum actions, document scrolling and keyboard-aware chrome. The installable PWA and thin Xcode wrapper use this same UI and game flow.
 
 Updated 2026-09-18: desktop rails use 184px navigation / 292px decisions at 1280–1535px, then 212px / 320px from 1536px. The status bar wraps to keep the calendar readable; capacity metrics appear from 1536px and remain available in the Office below that width. Agency record is always linked from desktop navigation. Stocks is available in desktop navigation and the More drawer (shortcut 9).

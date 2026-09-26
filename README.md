@@ -3,7 +3,7 @@
 A football agent management game. You run an agency: scout talent on incomplete
 information, sign clients, and take your cut of their moves.
 
-The **Python simulation and Next.js game** explore agency building, client careers and transfer strategy. The web game is an installable, iPhone-first PWA and also ships with a thin Xcode wrapper; both keep the engine as the single source of game rules.
+The **Python simulation and Next.js game** explore agency building, client careers and transfer strategy. A separate native SwiftUI iPhone edition now carries the complete loop offline, with local saves and no Python, Node.js, WebKit or Mac-side server required while playing.
 
 ```
 Scout on incomplete information
@@ -44,11 +44,11 @@ better, and he rots, stops improving, and turns on you. Without this, moving
 everyone to the richest club would always be correct and half the game's
 decisions would evaporate.
 
-The browser game also includes agency departments, client careers, loans and a
+The browser and native iPhone games also include agency departments, client careers, loans and a
 [fictional stock exchange](documentation/features/investments.md) for investing
 agency cash. Five original illustrations accompany the finance and progression UI.
 
-For iPhone, run `make dev-ios`, open [`ios/FootballAgent.xcodeproj`](ios/FootballAgent.xcodeproj) in Xcode, choose the connected phone and press Run.
+For iPhone, open [`ios/FootballAgent.xcodeproj`](ios/FootballAgent.xcodeproj), choose a connected phone and press Run. The app is fully native and self-contained; see the [native iPhone guide](documentation/features/native-ios.md).
 
 ## Documentation
 
@@ -57,6 +57,7 @@ For iPhone, run `make dev-ios`, open [`ios/FootballAgent.xcodeproj`](ios/Footbal
 | [docs/how-to-run.md](docs/how-to-run.md) | Running the game, the tests and the tuning harness |
 | [docs/v1-python-build-plan.md](docs/v1-python-build-plan.md) | The full design, the reasoning behind each decision, and what was deliberately deferred |
 | [documentation/](documentation/README.md) | What was actually shipped: the web design system, the app shell, and the decisions model |
+| [documentation/features/native-ios.md](documentation/features/native-ios.md) | Native iPhone architecture, gameplay scope, saves, tests and Xcode workflow |
 
 ## Agency expansion
 
@@ -64,8 +65,7 @@ The illustrated office now connects staff, departments, client stories, club rel
 
 ## Status
 
-The expanded game is implemented and playable, with engine, API and browser tests including two design guards: the
-negotiation must not be trivially solvable, and greed must not dominate.
+The expanded game is implemented and playable in the terminal, browser and native iPhone app. The Python/browser suite retains its design guards, while the Swift target adds native determinism, progression, transaction and save-recovery tests.
 
 Deliberately **not** in v1: the Upgrades screen (properties and vehicles), multiple countries, continental competition, real squads with AI-to-AI
 transfers, and split club/player reputation. Each is recorded in the build plan

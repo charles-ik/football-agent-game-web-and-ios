@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-26 — Native iPhone game
+
+- **Replaced:** the SwiftUI/WebKit shell and local-network configuration with a complete offline SwiftUI game and deterministic Swift engine.
+- **Added:** native onboarding, multiple autosave slots with backups, Office guidance, five-tab navigation, client dossiers, scouting, bounded representation and transfer talks, club pitches, loans, rivals, staff, departments, objectives, milestones, headquarters, finances, stocks, leagues, alumni, insolvency and game over.
+- **Changed:** progression now reveals secondary systems through explicit achievement requirements, supplies a state-derived next move, stops event advancement within twelve weeks and pays visible milestone rewards.
+- **Removed:** the iPhone target's HTTP host settings, WebKit dependency, local-network permission and Mac/server runtime requirement.
+- **Validated:** 8 native engine and persistence tests on iPhone 17 Pro simulator, visual safe-area checks, and an automatically signed build for the connected iPhone.
+
 ## 2026-09-19 — iPhone-first PWA and Xcode build
 
 - **Added:** installable PWA metadata, generated icons, standalone portrait display and iPhone safe-area support.

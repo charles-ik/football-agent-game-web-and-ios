@@ -149,16 +149,24 @@ worth knowing:
 
 ## Run on iPhone from Xcode
 
-The iPhone app is a signed SwiftUI/WebKit shell around the same responsive game. It connects to the Next.js server on this Mac; it does not duplicate the engine or require a separate mobile backend.
+The iPhone edition is a native SwiftUI game with its own deterministic Swift engine and local JSON autosaves. It does not use WebKit and does not need Python, Node.js, a web server or a network connection while playing.
 
 ```bash
-make dev-ios
 open ios/FootballAgent.xcodeproj
 ```
 
-In Xcode, choose your connected iPhone and press Run. The project already uses the configured Personal Team with automatic signing. Keep the Mac and iPhone on the same local network and leave `make dev-ios` running while playing. Accept the local-network prompt on first launch.
+In Xcode, select the **FootballAgent** scheme, choose your connected iPhone and press Run (`⌘R`). The checked-in project uses automatic signing; on another Mac, select that developer's team under **Signing & Capabilities** once.
 
-The development URL is configured in `ios/Config.xcconfig`. If the Mac's Local Hostname changes from `MacBook-Pro.local`, update `FOOTBALL_AGENT_HOST` there.
+The first launch offers a seeded new career. Successful actions and every time advance autosave under the app's Application Support directory, with the previous file retained as a backup. Use **More → Save games** to switch slots or begin another career.
+
+Run the native tests on the installed simulator runtime:
+
+```bash
+xcodebuild test -project ios/FootballAgent.xcodeproj -scheme FootballAgent \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+```
+
+The target supports iPhone on iOS 17 or newer and is portrait-only.
 
 ## Run the tests
 

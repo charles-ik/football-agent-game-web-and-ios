@@ -13,4 +13,4 @@ web/test-results/
 web/playwright-report/
 web/blob-report/
 web/coverage/
-
+ios/**/xcuserdata/

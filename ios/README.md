@@ -1,7 +1,16 @@
 # iPhone build
 
-1. Run `make dev-ios` from the repository root.
-2. Open `FootballAgent.xcodeproj` in Xcode.
-3. Choose your connected iPhone and press Run.
+Football Agent for iPhone is a self-contained SwiftUI app. It does not connect to the Python or Next.js game.
 
-The app loads the existing game from `http://MacBook-Pro.local:3000`, so the Mac and iPhone must be on the same local network while playing. If this Mac's Local Hostname changes, update `FOOTBALL_AGENT_HOST` in `Config.xcconfig`.
+1. Open `FootballAgent.xcodeproj` in Xcode.
+2. Select the **FootballAgent** scheme and your connected iPhone.
+3. Press Run (`⌘R`).
+
+Automatic signing is configured in `Config.xcconfig`. The app targets iOS 17+, works offline and autosaves after every successful action or week.
+
+Run native tests with:
+
+```bash
+xcodebuild test -project FootballAgent.xcodeproj -scheme FootballAgent \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+```

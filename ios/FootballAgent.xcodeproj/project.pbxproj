@@ -9,7 +9,26 @@
 		A0000000000000000000000C /* FootballAgentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000007 /* FootballAgentApp.swift */; };
 		A0000000000000000000000D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000008 /* ContentView.swift */; };
 		A0000000000000000000000E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000000A /* Assets.xcassets */; };
+		A00000000000000000000020 /* GameModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000018 /* GameModels.swift */; };
+		A00000000000000000000021 /* SeededRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000019 /* SeededRandom.swift */; };
+		A00000000000000000000022 /* GameContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000001A /* GameContent.swift */; };
+		A00000000000000000000023 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000001B /* GameEngine.swift */; };
+		A00000000000000000000024 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000001C /* GameStore.swift */; };
+		A00000000000000000000025 /* NativeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000001D /* NativeTheme.swift */; };
+		A00000000000000000000026 /* PeopleViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000001E /* PeopleViews.swift */; };
+		A00000000000000000000027 /* BusinessViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000001F /* BusinessViews.swift */; };
+		B00000000000000000000006 /* GameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000005 /* GameEngineTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0000000000000000000000A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A00000000000000000000002;
+			remoteInfo = FootballAgent;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A00000000000000000000003 /* FootballAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -18,10 +37,26 @@
 		A00000000000000000000009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0000000000000000000000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0000000000000000000000B /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		A00000000000000000000018 /* GameModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModels.swift; sourceTree = "<group>"; };
+		A00000000000000000000019 /* SeededRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededRandom.swift; sourceTree = "<group>"; };
+		A0000000000000000000001A /* GameContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameContent.swift; sourceTree = "<group>"; };
+		A0000000000000000000001B /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		A0000000000000000000001C /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		A0000000000000000000001D /* NativeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTheme.swift; sourceTree = "<group>"; };
+		A0000000000000000000001E /* PeopleViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViews.swift; sourceTree = "<group>"; };
+		A0000000000000000000001F /* BusinessViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessViews.swift; sourceTree = "<group>"; };
+		B00000000000000000000003 /* FootballAgentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootballAgentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00000000000000000000005 /* GameEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A0000000000000000000000F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B00000000000000000000007 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = ();
@@ -34,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000005 /* FootballAgent */,
+				B00000000000000000000004 /* FootballAgentTests */,
 				A0000000000000000000000B /* Config.xcconfig */,
 				A00000000000000000000006 /* Products */,
 			);
@@ -44,6 +80,14 @@
 			children = (
 				A00000000000000000000007 /* FootballAgentApp.swift */,
 				A00000000000000000000008 /* ContentView.swift */,
+				A00000000000000000000018 /* GameModels.swift */,
+				A00000000000000000000019 /* SeededRandom.swift */,
+				A0000000000000000000001A /* GameContent.swift */,
+				A0000000000000000000001B /* GameEngine.swift */,
+				A0000000000000000000001C /* GameStore.swift */,
+				A0000000000000000000001D /* NativeTheme.swift */,
+				A0000000000000000000001E /* PeopleViews.swift */,
+				A0000000000000000000001F /* BusinessViews.swift */,
 				A00000000000000000000009 /* Info.plist */,
 				A0000000000000000000000A /* Assets.xcassets */,
 			);
@@ -54,8 +98,15 @@
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000003 /* FootballAgent.app */,
+				B00000000000000000000003 /* FootballAgentTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000004 /* FootballAgentTests */ = {
+			isa = PBXGroup;
+			children = (B00000000000000000000005 /* GameEngineTests.swift */);
+			path = FootballAgentTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -76,6 +127,21 @@
 			productReference = A00000000000000000000003 /* FootballAgent.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B00000000000000000000002 /* FootballAgentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0000000000000000000000E /* Build configuration list for PBXNativeTarget "FootballAgentTests" */;
+			buildPhases = (
+				B00000000000000000000008 /* Sources */,
+				B00000000000000000000007 /* Frameworks */,
+				B00000000000000000000009 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (B0000000000000000000000B /* PBXTargetDependency */);
+			name = FootballAgentTests;
+			productName = FootballAgentTests;
+			productReference = B00000000000000000000003 /* FootballAgentTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -87,6 +153,7 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					A00000000000000000000002 = { CreatedOnToolsVersion = 26.0; };
+					B00000000000000000000002 = { CreatedOnToolsVersion = 26.0; TestTargetID = A00000000000000000000002; };
 				};
 			};
 			buildConfigurationList = A00000000000000000000016 /* Build configuration list for PBXProject "FootballAgent" */;
@@ -98,7 +165,7 @@
 			productRefGroup = A00000000000000000000006 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
-			targets = (A00000000000000000000002 /* FootballAgent */);
+			targets = (A00000000000000000000002 /* FootballAgent */, B00000000000000000000002 /* FootballAgentTests */);
 		};
 /* End PBXProject section */
 
@@ -109,6 +176,12 @@
 			files = (A0000000000000000000000E /* Assets.xcassets in Resources */);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B00000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -116,12 +189,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00000000000000000000027 /* BusinessViews.swift in Sources */,
+				A00000000000000000000026 /* PeopleViews.swift in Sources */,
+				A00000000000000000000025 /* NativeTheme.swift in Sources */,
+				A00000000000000000000024 /* GameStore.swift in Sources */,
+				A00000000000000000000023 /* GameEngine.swift in Sources */,
+				A00000000000000000000022 /* GameContent.swift in Sources */,
+				A00000000000000000000021 /* SeededRandom.swift in Sources */,
+				A00000000000000000000020 /* GameModels.swift in Sources */,
 				A0000000000000000000000D /* ContentView.swift in Sources */,
 				A0000000000000000000000C /* FootballAgentApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B00000000000000000000008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (B00000000000000000000006 /* GameEngineTests.swift in Sources */);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0000000000000000000000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A00000000000000000000002 /* FootballAgent */;
+			targetProxy = B0000000000000000000000A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A00000000000000000000012 /* Debug */ = {
@@ -188,6 +283,40 @@
 			};
 			name = Release;
 		};
+		B0000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N9JT3KTU7Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = charlesmakesapps.FootballAgentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FootballAgent.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FootballAgent";
+			};
+			name = Debug;
+		};
+		B0000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N9JT3KTU7Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = charlesmakesapps.FootballAgentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FootballAgent.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FootballAgent";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -200,6 +329,12 @@
 		A00000000000000000000017 /* Build configuration list for PBXNativeTarget "FootballAgent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (A00000000000000000000014 /* Debug */, A00000000000000000000015 /* Release */);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0000000000000000000000E /* Build configuration list for PBXNativeTarget "FootballAgentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (B0000000000000000000000C /* Debug */, B0000000000000000000000D /* Release */);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};

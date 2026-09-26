@@ -20,21 +20,8 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>FootballAgentHost</key>
-	<string>$(FOOTBALL_AGENT_HOST)</string>
-	<key>FootballAgentPort</key>
-	<string>$(FOOTBALL_AGENT_PORT)</string>
-	<key>FootballAgentScheme</key>
-	<string>$(FOOTBALL_AGENT_SCHEME)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
-	</dict>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Football Agent connects to the game running on your Mac.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>

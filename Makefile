@@ -3,10 +3,10 @@
 #   make dev      both halves at once (API on :8000, web on :3000)
 #   make api      just the FastAPI service
 #   make web      just the Next.js dev server
-#   make dev-ios  both halves, reachable by the iPhone app on this Mac's LAN
+#   make dev-pwa-phone  browser PWA over this Mac's LAN (the native app needs no server)
 #   make test     engine + API tests
 
-.PHONY: dev dev-ios api web test
+.PHONY: dev dev-pwa-phone api web test
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
 api:
@@ -18,7 +18,7 @@ web:
 dev:
 	@$(MAKE) api & $(MAKE) web & wait
 
-dev-ios:
+dev-pwa-phone:
 	@$(MAKE) api & (cd web && npm run dev -- --hostname 0.0.0.0) & wait
 
 test:
